@@ -39,7 +39,8 @@ public class Myserver{
 			//File Reading
 			try
 			{
-				File myFile = new File(filename);
+				System.out.println(args[0]+"/"+filename);
+				File myFile = new File(args[0]+"/"+filename);
 				byte[] resarray = new byte [(int)myFile.length()];
 				FileInputStream fis = new FileInputStream(myFile);
 				BufferedInputStream bis = new BufferedInputStream(fis);
@@ -51,10 +52,14 @@ public class Myserver{
 				clientSocket.getOutputStream().write(resarray,0,resarray.length);
 				
 				// ########## Close current socket ##########
+				
+				clientSocket.close();
+				
 			}
 			catch(Exception e)
 			{
-				File myFile = new File("404.html");
+				
+				File myFile = new File("404.jpg");
 				byte[] resarray = new byte [(int)myFile.length()];
 				FileInputStream fis = new FileInputStream(myFile);
 				BufferedInputStream bis = new BufferedInputStream(fis);
@@ -64,9 +69,12 @@ public class Myserver{
 				
 				clientSocket.getOutputStream().write(("HTTP/1.1 200 OK\r\n\r\n").getBytes("UTF-8"));
 				clientSocket.getOutputStream().write(resarray,0,resarray.length);
+				
+				// ########## Close current socket ##########
+				
+				clientSocket.close();
+				
 			}
-			
-			clientSocket.close();
 		}
 	}//End of main
 }//End of Class
